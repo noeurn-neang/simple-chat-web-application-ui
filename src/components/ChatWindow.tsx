@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, MoreVertical, Paperclip, Smile, Phone, Search, ChevronLeft, CheckCheck, File, Download, X, Trash2, Edit2, CheckCircle2, Copy } from 'lucide-react';
+import { Send, MoreVertical, Paperclip, Smile, Phone, Video, Search, ChevronLeft, CheckCheck, File, Download, X, Trash2, Edit2, CheckCircle2, Copy } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Chat, Message, ThemeConfig } from '../types';
 import { REACTION_EMOJIS } from '../constants';
@@ -130,6 +130,18 @@ export default function ChatWindow({ chat: initialChat, onBack, config }: ChatWi
       className={`fixed inset-0 z-50 flex flex-col md:relative md:flex-1 md:h-full bg-nebula-chat-bg transition-all duration-300 overflow-hidden`}
       onClick={closeContextMenu}
     >
+      {/* Background Pattern */}
+      {config.chatBackground && (
+        <div 
+          className="absolute inset-x-0 bottom-0 top-0 opacity-[0.1] dark:opacity-[0.15] pointer-events-none"
+          style={{ 
+            backgroundImage: `url('${config.chatBackground}')`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: 'auto'
+          }}
+        />
+      )}
+
       {/* Context Menu */}
       <AnimatePresence>
         {contextMenu && (
@@ -266,6 +278,9 @@ export default function ChatWindow({ chat: initialChat, onBack, config }: ChatWi
             <div className="flex items-center gap-1 md:gap-2">
               <div className="hidden sm:flex items-center bg-black/5 dark:bg-white/5 rounded-xl p-1 gap-1">
                 <button className="p-2 hover:bg-white dark:hover:bg-nebula-bg rounded-lg text-nebula-text-secondary transition-all">
+                  <Video className="w-4 h-4" />
+                </button>
+                <button className="p-2 hover:bg-white dark:hover:bg-nebula-bg rounded-lg text-nebula-text-secondary transition-all">
                   <Phone className="w-4 h-4" />
                 </button>
                 <button className="p-2 hover:bg-white dark:hover:bg-nebula-bg rounded-lg text-nebula-text-secondary transition-all">
@@ -287,17 +302,6 @@ export default function ChatWindow({ chat: initialChat, onBack, config }: ChatWi
       <div 
         className="flex-1 min-h-0 overflow-y-auto p-4 md:p-6 flex flex-col gap-3 custom-scrollbar overflow-x-hidden relative"
       >
-         {/* Background Pattern */}
-         {config.chatBackground && (
-           <div 
-             className="absolute inset-0 opacity-[0.05] dark:opacity-[0.1] pointer-events-none"
-             style={{ 
-               backgroundImage: `url('${config.chatBackground}')`,
-               backgroundColor: 'transparent'
-             }}
-           />
-         )}
-         
          <div className="flex-1" />
          
           <div className="flex flex-col gap-4 max-w-3xl mx-auto w-full relative z-10 px-2 sm:px-4">
